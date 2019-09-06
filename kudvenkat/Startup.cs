@@ -26,11 +26,12 @@ namespace kudvenkat {
                 app.UseDeveloperExceptionPage();
             }
 
-            var defaultFilesOptions = new DefaultFilesOptions();
-            defaultFilesOptions.DefaultFileNames.Clear();
-            defaultFilesOptions.DefaultFileNames.Add("index.html");
-            app.UseDefaultFiles(defaultFilesOptions);
-            app.UseStaticFiles();
+            // UseDefaultFiles() must be registered before UseStaticFiles()
+            // UseFileServer combines the functionality of UseStaticFiles, UseDefaultFiles and UseDirectoryBrowser middleware
+            var fileServerOptions = new FileServerOptions();
+            fileServerOptions.DefaultFilesOptions.DefaultFileNames.Clear();
+            fileServerOptions.DefaultFilesOptions.DefaultFileNames.Add("index.html");
+            app.UseFileServer(fileServerOptions);
 
             app.Run(async (context) => {
                 await context.Response.WriteAsync("Hello World!");
