@@ -14,13 +14,17 @@ namespace kudvenkat.Controllers {
             _employeeRepository = employeeRepository;
         }
 
+        [Route("")]
+        [Route("home")]
+        [Route("home/index")]
         public ViewResult Index() {
             return View(_employeeRepository.GetEmployees());
         }
 
-        public ViewResult Details(int id = 1) {
+        [Route("home/details/{id?}")]
+        public ViewResult Details(int? id) {
             var vm = new HomeDetailsViewModel() {
-                Employee = _employeeRepository.GetEmployee(id),
+                Employee = _employeeRepository.GetEmployee(id ?? 1),
                 PageTitle = "Details Page of "
             };
             vm.PageTitle += vm.Employee?.Name;
