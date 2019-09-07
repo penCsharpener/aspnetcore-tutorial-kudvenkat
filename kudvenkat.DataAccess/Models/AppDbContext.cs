@@ -1,4 +1,5 @@
-﻿using kudvenkat.Models;
+﻿using kudvenkat.DataAccess.Models.Seeding;
+using kudvenkat.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,5 +13,9 @@ namespace kudvenkat.DataAccess.Models {
         }
 
         public DbSet<Employee> Employees { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder) {
+            modelBuilder.SeedEmployees();
+        }
     }
 }
