@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29215.179
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kudvenkat", "kudvenkat\kudvenkat.csproj", "{67ACA66D-8D1D-473B-A757-A13332DB2EA7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kudvenkat", "kudvenkat\kudvenkat.csproj", "{67ACA66D-8D1D-473B-A757-A13332DB2EA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kudvenkat.DataAccess", "kudvenkat.DataAccess\kudvenkat.DataAccess.csproj", "{C9918166-3556-45B6-944F-A31EE3259F41}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{67ACA66D-8D1D-473B-A757-A13332DB2EA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67ACA66D-8D1D-473B-A757-A13332DB2EA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67ACA66D-8D1D-473B-A757-A13332DB2EA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9918166-3556-45B6-944F-A31EE3259F41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9918166-3556-45B6-944F-A31EE3259F41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9918166-3556-45B6-944F-A31EE3259F41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9918166-3556-45B6-944F-A31EE3259F41}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
