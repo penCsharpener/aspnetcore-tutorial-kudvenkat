@@ -19,7 +19,7 @@ namespace kudvenkat.Controllers {
         [Route("home")]
         [Route("home/index")]
         public ViewResult Index() {
-            return View(_employeeRepository.GetEmployees());
+            return View(_employeeRepository.GetAllEmployees());
         }
 
         [Route("home/details/{id?}")]

@@ -1,4 +1,5 @@
 ﻿using kudvenkat.Models;
+using Microsoft.EntityFrameworkCore.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,12 +24,30 @@ namespace kudvenkat.Repositories {
             return employee;
         }
 
-        public Employee GetEmployee(int Id) {
-            return _employeeList.FirstOrDefault(x => x.Id == Id);
+        public Employee Delete(int id) {
+            var employee = _employeeList.Find(x => x.Id == id);
+            if (employee != null) {
+                _employeeList.Remove(employee);
+            }
+            return employee;
         }
 
-        public IEnumerable<Employee> GetEmployees() {
+        public Employee GetEmployee(int Id) {
+            return _employeeList.Find(x => x.Id == Id);
+        }
+
+        public IEnumerable<Employee> GetAllEmployees() {
             return _employeeList;
+        }
+
+        public Employee Update(Employee employeeChanges) {
+            var employee = _employeeList.Find(x => x.Id == employeeChanges.Id);
+            if (employee != null) {
+                employee.Name = employeeChanges.Name;
+                employee.Email = employeeChanges.Email;
+                employee.Department = employeeChanges.Department;
+            }
+            return employee;
         }
     }
 }

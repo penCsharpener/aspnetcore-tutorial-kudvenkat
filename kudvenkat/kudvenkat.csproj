@@ -16,4 +16,8 @@
     <Folder Include="wwwroot\views\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\kudvenkat.DataAccess\kudvenkat.DataAccess.csproj" />
+  </ItemGroup>
+
 </Project>
