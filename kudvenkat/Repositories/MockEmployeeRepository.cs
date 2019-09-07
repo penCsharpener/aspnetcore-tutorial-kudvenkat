@@ -17,6 +17,12 @@ namespace kudvenkat.Repositories {
             };
         }
 
+        public Employee Add(Employee employee) {
+            employee.Id = _employeeList.Max(x => x.Id) + 1;
+            _employeeList.Add(employee);
+            return employee;
+        }
+
         public Employee GetEmployee(int Id) {
             return _employeeList.FirstOrDefault(x => x.Id == Id);
         }

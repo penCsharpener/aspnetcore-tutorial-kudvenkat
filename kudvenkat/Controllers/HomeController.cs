@@ -1,4 +1,5 @@
-﻿using kudvenkat.Repositories;
+﻿using kudvenkat.Models;
+using kudvenkat.Repositories;
 using kudvenkat.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -31,9 +32,15 @@ namespace kudvenkat.Controllers {
             return View(vm);
         }
 
+        [HttpGet]
         public ViewResult Create() {
-
             return View();
+        }
+
+        [HttpPost]
+        public RedirectToActionResult Create(Employee employee) {
+            var newEmployee = _employeeRepository.Add(employee);
+            return RedirectToAction("details", new { id = newEmployee.Id });
         }
     }
 }
