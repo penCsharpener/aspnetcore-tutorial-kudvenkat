@@ -20,5 +20,9 @@ namespace kudvenkat.Repositories {
         public Employee GetEmployee(int Id) {
             return _employeeList.FirstOrDefault(x => x.Id == Id);
         }
+
+        public IEnumerable<Employee> GetEmployees() {
+            return _employeeList;
+        }
     }
 }

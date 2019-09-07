@@ -13,8 +13,8 @@ namespace kudvenkat.Controllers {
             _employeeRepository = employeeRepository;
         }
 
-        public string Index() {
-            return _employeeRepository.GetEmployee(1).Name;
+        public ViewResult Index() {
+            return View(_employeeRepository.GetEmployees());
         }
 
         public ViewResult Details(int id) {
