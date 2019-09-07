@@ -30,5 +30,10 @@ namespace kudvenkat.Controllers {
             vm.PageTitle += vm.Employee?.Name;
             return View(vm);
         }
+
+        public ViewResult Create() {
+
+            return View();
+        }
     }
 }
