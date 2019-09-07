@@ -18,7 +18,7 @@ namespace kudvenkat.Controllers {
             return View(_employeeRepository.GetEmployees());
         }
 
-        public ViewResult Details(int id) {
+        public ViewResult Details(int id = 1) {
             var vm = new HomeDetailsViewModel() {
                 Employee = _employeeRepository.GetEmployee(id),
                 PageTitle = "Details Page of "

@@ -30,10 +30,9 @@ namespace kudvenkat {
             }
 
             app.UseStaticFiles();
-            app.UseMvcWithDefaultRoute();
-
-            app.Run(async (context) => {
-                await context.Response.WriteAsync("Hello World");
+            //app.UseMvcWithDefaultRoute();
+            app.UseMvc(routes => {
+                routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
