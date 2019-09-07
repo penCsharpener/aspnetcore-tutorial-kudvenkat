@@ -1,9 +1,18 @@
-﻿@model kudvenkat.Models.Employee
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-    var modelname = Model.Name;
-}
-<h1>@modelname</h1>
+﻿@model kudvenkat.ViewModels.HomeDetailsViewModel
 
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Employee Details";
+}
+
+<h3>@Model.PageTitle</h3>
+
+<div>
+    Name: @Model.Employee.Name
+</div>
+<div>
+    Email: @Model.Employee.Email
+</div>
+<div>
+    Department: @Model.Employee.Department
+</div>

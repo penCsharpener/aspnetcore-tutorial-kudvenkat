@@ -1,4 +1,5 @@
 ﻿using kudvenkat.Repositories;
+using kudvenkat.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,12 @@ namespace kudvenkat.Controllers {
         }
 
         public ViewResult Details(int id) {
-            return View(_employeeRepository.GetEmployee(id));
+            var vm = new HomeDetailsViewModel() {
+                Employee = _employeeRepository.GetEmployee(id),
+                PageTitle = "Details Page of "
+            };
+            vm.PageTitle += vm.Employee?.Name;
+            return View(vm);
         }
     }
 }
