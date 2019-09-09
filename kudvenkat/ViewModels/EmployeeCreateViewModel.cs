@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace kudvenkat.ViewModels {
     public class EmployeeCreateViewModel {
-        public int Id { get; set; }
         [Required]
         [MaxLength(50, ErrorMessage = "Name cannot exceed 50 characters")]
         public string Name { get; set; }
