@@ -32,6 +32,8 @@ namespace kudvenkat {
         public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
+            } else {
+                app.UseStatusCodePagesWithRedirects("/Error/{0}");
             }
 
             app.UseStaticFiles();
