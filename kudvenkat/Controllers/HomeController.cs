@@ -29,8 +29,15 @@ namespace kudvenkat.Controllers {
 
         [Route("home/details/{id?}")]
         public ViewResult Details(int? id) {
+            var employee = _employeeRepository.GetEmployee(id ?? 1);
+
+            if (employee == null) {
+                Response.StatusCode = 404;
+                return View("EmployeeNotFound", id.Value);
+            }
+
             var vm = new HomeDetailsViewModel() {
-                Employee = _employeeRepository.GetEmployee(id ?? 1),
+                Employee = employee,
                 PageTitle = "Details Page of "
             };
             vm.PageTitle += vm.Employee?.Name;
