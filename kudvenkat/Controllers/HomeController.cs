@@ -45,12 +45,7 @@ namespace kudvenkat.Controllers {
         [HttpPost]
         public IActionResult Create(EmployeeCreateViewModel model) {
             if (ModelState.IsValid) {
-                string uniqueFileName = null;
-                if (model.Photo != null) {
-                    uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Photo.FileName;
-                    string filePath = Path.Combine(Path.Combine(_hostingEnvironment.WebRootPath, "img"), uniqueFileName);
-                    model.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
-                }
+                var uniqueFileName = ProcessUploadedFile(model);
                 var newEmployee = new Employee() {
                     Name = model.Name,
                     Email = model.Email,
@@ -77,6 +72,39 @@ namespace kudvenkat.Controllers {
             return View(vm);
         }
 
+        [HttpPost]
+        public IActionResult Edit(EmployeeEditViewModel model) {
+            if (ModelState.IsValid) {
+                var employee = _employeeRepository.GetEmployee(model.Id);
+                employee.Name = model.Name;
+                employee.Email = model.Email;
+                employee.Department = model.Department;
 
+                if (model.Photo != null) {
+                    if (model.ExistingPhotoPath != null) {
+                        var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "img", model.ExistingPhotoPath);
+                        System.IO.File.Delete(filePath);
+                    }
+                    employee.PhotoPath = ProcessUploadedFile(model);
+                }
+
+                _employeeRepository.Update(employee);
+                return RedirectToAction("index");
+            }
+            return View();
+        }
+
+        private string ProcessUploadedFile(EmployeeCreateViewModel model) {
+            string uniqueFileName = null;
+            if (model.Photo != null) {
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Photo.FileName;
+                string filePath = Path.Combine(Path.Combine(_hostingEnvironment.WebRootPath, "img"), uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create)) {
+                    model.Photo.CopyTo(fileStream);
+                }
+            }
+
+            return uniqueFileName;
+        }
     }
 }
