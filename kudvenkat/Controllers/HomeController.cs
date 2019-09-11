@@ -3,6 +3,7 @@ using kudvenkat.Repositories;
 using kudvenkat.ViewModels;
 using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,11 +14,14 @@ namespace kudvenkat.Controllers {
     public class HomeController : Controller {
         private readonly IEmployeeRepository _employeeRepository;
         private readonly HostingEnvironment _hostingEnvironment;
+        private readonly ILogger<HomeController> _logger;
 
         public HomeController(IEmployeeRepository employeeRepository,
-                              HostingEnvironment hostingEnvironment) {
+                              HostingEnvironment hostingEnvironment,
+                              ILogger<HomeController> logger) {
             _employeeRepository = employeeRepository;
             _hostingEnvironment = hostingEnvironment;
+            _logger = logger;
         }
 
         [Route("")]

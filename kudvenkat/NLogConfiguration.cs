@@ -5,5 +5,8 @@ using System.Threading.Tasks;
 
 namespace kudvenkat {
     public class NLogConfiguration {
+        public NLogConfiguration() {
+
+        }
     }
 }
