@@ -43,5 +43,11 @@ namespace kudvenkat.Controllers {
             }
             return View(model);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout() {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("index", "home");
+        }
     }
 }
