@@ -8,6 +8,10 @@ namespace kudvenkat.ViewModels {
     public class RegisterViewModel {
 
         [Required]
+        [Display(Name = "User name")]
+        public string UserName { get; set; }
+
+        [Required]
         [EmailAddress]
         public string Email { get; set; }
         [Required]

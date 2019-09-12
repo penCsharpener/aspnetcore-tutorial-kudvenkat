@@ -27,7 +27,7 @@ namespace kudvenkat.Controllers {
         public async Task<IActionResult> Register(RegisterViewModel model) {
             if (ModelState.IsValid) {
                 var user = new IdentityUser {
-                    UserName = model.Email,
+                    UserName = model.UserName,
                     Email = model.Email
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);
