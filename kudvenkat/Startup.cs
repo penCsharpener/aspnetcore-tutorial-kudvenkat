@@ -33,7 +33,9 @@ namespace kudvenkat {
             }).AddEntityFrameworkStores<AppDbContext>();
 
             services.AddMvc(options => {
-                var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+                var policy = new AuthorizationPolicyBuilder()
+                                .RequireAuthenticatedUser()
+                                .Build();
                 options.Filters.Add(new AuthorizeFilter(policy));
             }).AddXmlSerializerFormatters();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();

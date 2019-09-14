@@ -55,12 +55,15 @@ namespace kudvenkat.Controllers {
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(LoginViewModel model) {
+        public async Task<IActionResult> Login(LoginViewModel model, string returnURL) {
             if (ModelState.IsValid) {
 
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, isPersistent: model.RememberMe, false);
 
                 if (result.Succeeded) {
+                    if (!string.IsNullOrWhiteSpace(returnURL)) {
+                        return Redirect(returnURL);
+                    }
                     return RedirectToAction("index", "home");
                 }
 
