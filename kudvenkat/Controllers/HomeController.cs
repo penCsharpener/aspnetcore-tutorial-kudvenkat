@@ -1,6 +1,7 @@
 ﻿using kudvenkat.Models;
 using kudvenkat.Repositories;
 using kudvenkat.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -27,6 +28,7 @@ namespace kudvenkat.Controllers {
         [Route("")]
         [Route("home")]
         [Route("home/index")]
+        [AllowAnonymous]
         public ViewResult Index() {
             return View(_employeeRepository.GetAllEmployees());
         }
