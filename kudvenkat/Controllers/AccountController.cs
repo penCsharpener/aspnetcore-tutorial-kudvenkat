@@ -25,9 +25,25 @@ namespace kudvenkat.Controllers {
             return View();
         }
 
+        [AcceptVerbs("Get", "Post")]
+        [AllowAnonymous]
+        public async Task<IActionResult> IsEmailInUse(string email) {
+            var user = await _userManager.FindByEmailAsync(email);
+
+            if (user == null) {
+                return Json(true);
+            }
+            return Json($"Email {email} is already in use.");
+        }
+
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> Register(RegisterViewModel model) {
+            var exists = await _userManager.FindByEmailAsync(model.Email);
+            if (exists != null) {
+                return RedirectToAction("register", "account");
+            }
+
             if (ModelState.IsValid) {
                 var user = new IdentityUser {
                     UserName = model.UserName,
