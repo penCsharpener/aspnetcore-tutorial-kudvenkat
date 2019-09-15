@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using kudvenkat.Utils;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -15,6 +16,7 @@ namespace kudvenkat.ViewModels {
         [Required]
         [EmailAddress]
         [Remote(action: "IsEmailInUse", controller: "Account")]
+        [ValidEmailDomain(allowedDomain: new[] { "gmail.com", "hotmail.co.uk" })]
         public string Email { get; set; }
 
         [Required]
