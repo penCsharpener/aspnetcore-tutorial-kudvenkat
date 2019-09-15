@@ -1,4 +1,4 @@
-﻿using kudvenkat.Models;
+﻿using kudvenkat.DataAccess.Models;
 using Microsoft.EntityFrameworkCore.Internal;
 using System;
 using System.Collections.Generic;

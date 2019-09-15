@@ -1,4 +1,4 @@
-﻿using kudvenkat.Models;
+﻿using kudvenkat.DataAccess.Models;
 using kudvenkat.Repositories;
 using kudvenkat.ViewModels;
 using Microsoft.AspNetCore.Authorization;

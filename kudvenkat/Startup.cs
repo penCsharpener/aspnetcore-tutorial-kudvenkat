@@ -27,7 +27,7 @@ namespace kudvenkat {
         public void ConfigureServices(IServiceCollection services) {
             services.AddDbContextPool<AppDbContext>(options => options.UseMySql(_config.GetConnectionString("EmployeeDBConnection"), b => b.MigrationsAssembly("kudvenkat.DataAccess")));
 
-            services.AddIdentity<IdentityUser, IdentityRole>(options => {
+            services.AddIdentity<ApplicationUser, IdentityRole>(options => {
                 options.Password.RequiredLength = 10;
                 options.Password.RequiredUniqueChars = 3;
             }).AddEntityFrameworkStores<AppDbContext>();

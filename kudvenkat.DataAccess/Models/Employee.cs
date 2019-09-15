@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace kudvenkat.Models {
+namespace kudvenkat.DataAccess.Models {
     public class Employee {
         public int Id { get; set; }
         [Required]
