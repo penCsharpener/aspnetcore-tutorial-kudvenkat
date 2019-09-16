@@ -29,7 +29,7 @@ namespace kudvenkat.Controllers {
                 var result = await _roleManager.CreateAsync(identityRole);
 
                 if (result.Succeeded) {
-                    return RedirectToAction("index", "home");
+                    return RedirectToAction("ListRoles", "Administration");
                 }
 
                 foreach (var error in result.Errors) {
@@ -38,6 +38,12 @@ namespace kudvenkat.Controllers {
             }
 
             return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult ListRoles() {
+            var roles = _roleManager.Roles;
+            return View(roles);
         }
 
     }
