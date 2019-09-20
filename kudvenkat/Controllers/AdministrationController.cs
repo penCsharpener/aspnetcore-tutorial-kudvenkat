@@ -1,5 +1,6 @@
 ﻿using kudvenkat.DataAccess.Models;
 using kudvenkat.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace kudvenkat.Controllers {
+
     public class AdministrationController : Controller {
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<ApplicationUser> _userManager;
@@ -95,6 +97,12 @@ namespace kudvenkat.Controllers {
             }
 
             return View(model);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult AccessDenied() {
+            return View();
         }
     }
 }

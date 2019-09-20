@@ -6,6 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace kudvenkat.Utils {
+
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public class ValidEmailDomainAttribute : ValidationAttribute {
         private readonly string[] _allowedDomain;
 
