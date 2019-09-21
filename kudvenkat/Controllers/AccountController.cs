@@ -54,6 +54,9 @@ namespace kudvenkat.Controllers {
                 var result = await _userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded) {
+                    if (_signInManager.IsSignedIn(User) && User.IsInRole("Admin")) {
+                        return RedirectToAction(nameof(AdministrationController.ListUsers), "Administrator");
+                    }
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToAction("index", "home");
                 }
