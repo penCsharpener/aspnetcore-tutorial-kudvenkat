@@ -57,6 +57,7 @@ namespace kudvenkat.Controllers {
                     if (_signInManager.IsSignedIn(User) && User.IsInRole("Admin")) {
                         return RedirectToAction(nameof(AdministrationController.ListUsers), "Administrator");
                     }
+
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToAction("index", "home");
                 }
