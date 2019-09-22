@@ -20,6 +20,29 @@ namespace kudvenkat.Controllers {
             _userManager = userManager;
         }
 
+        [HttpPost]
+        public async Task<IActionResult> DeleteUser(string id) {
+            var user = await _userManager.FindByIdAsync(id);
+
+            if (user == null) {
+                ViewBag.ErrorMessage = $"User with Id = {id} cannot be found";
+                return View("NotFound");
+            } else {
+                var result = await _userManager.DeleteAsync(user);
+
+                if (result.Succeeded) {
+                    return RedirectToAction(nameof(AdministrationController.ListUsers));
+                }
+
+                foreach (var error in result.Errors) {
+                    ModelState.AddModelError("", error.Description);
+                }
+
+                return View(nameof(AdministrationController.ListUsers));
+            }
+
+        }
+
         [HttpGet]
         public IActionResult ListUsers() {
             var users = _userManager.Users;
@@ -76,7 +99,6 @@ namespace kudvenkat.Controllers {
 
                 return View(model);
             }
-
         }
 
         [HttpGet]
