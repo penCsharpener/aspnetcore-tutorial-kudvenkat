@@ -4,10 +4,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace kudvenkat.Controllers {
@@ -23,6 +25,67 @@ namespace kudvenkat.Controllers {
             _roleManager = roleManager;
             _userManager = userManager;
             _logger = logger;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ManageUserClaims(UserClaimsViewModel model) {
+            var user = await _userManager.FindByIdAsync(model.UserId);
+
+            if (user == null) {
+                ViewBag.ErrorMessage = $"User with Id = {model.UserId} cannot be found";
+                return View("NotFound");
+            }
+
+            var claims = await _userManager.GetClaimsAsync(user);
+            var result = await _userManager.RemoveClaimsAsync(user, claims);
+
+            if (!result.Succeeded) {
+                ModelState.AddModelError("", "Cannot remove user existing claims");
+                return View(model);
+            }
+
+            result = await _userManager.AddClaimsAsync(user,
+                model.Claims.Where(x => x.IsSelected)
+                            .Select(x => new Claim(x.ClaimType, x.ClaimType)));
+
+            if (!result.Succeeded) {
+                ModelState.AddModelError("", "Cannot add selected claims to user");
+                return View(model);
+            }
+
+            return RedirectToAction(nameof(EditUser), new { Id = model.UserId });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ManageUserClaims(string userId) {
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (user == null) {
+                ViewBag.ErrorMessage = $"User with Id = {userId} cannot be found";
+                return View("NotFound");
+            }
+
+            var existingUserClaims = await _userManager.GetClaimsAsync(user);
+
+            var model = new UserClaimsViewModel() {
+                UserId = userId,
+            };
+
+            foreach (var claim in ClaimsStore.AllClaims) {
+                var userClaim = new UserClaim() {
+                    ClaimType = claim.Type,
+                };
+
+                // If the user has the claim, set IsSelected property to true, so the checkbox
+                // next to the claim is checked on the UI
+                if (existingUserClaims.Any(x => x.Type == claim.Type)) {
+                    userClaim.IsSelected = true;
+                }
+
+                model.Claims.Add(userClaim);
+            }
+
+            return View(model);
         }
 
         [HttpPost]
