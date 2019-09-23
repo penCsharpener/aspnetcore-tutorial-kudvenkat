@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace kudvenkat.ViewModels {
-    public class UserRoleViewModel {
-        public string UserId { get; set; }
-        public string UserName { get; set; }
+    public class IdNameSelectedBase {
+        public string Id { get; set; }
+        public string Name { get; set; }
         public bool IsSelected { get; set; }
     }
 }

@@ -26,6 +26,60 @@ namespace kudvenkat.Controllers {
         }
 
         [HttpPost]
+        public async Task<IActionResult> ManageUserRoles(List<IdNameSelectedBase> model, string userId) {
+
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (user == null) {
+                ViewBag.ErrorMessage = $"User with Id = {userId} cannot be found";
+                return View("NotFound");
+            }
+
+            var roles = await _userManager.GetRolesAsync(user);
+            var result = await _userManager.RemoveFromRolesAsync(user, roles);
+
+            if (!result.Succeeded) {
+                ModelState.AddModelError("", "Cannot remove user existing roles");
+                return View(model);
+            }
+
+            result = await _userManager.AddToRolesAsync(user, model.Where(x => x.IsSelected).Select(x => x.Name));
+
+            if (!result.Succeeded) {
+                ModelState.AddModelError("", "Cannot add selected roles to user");
+                return View(model);
+            }
+
+            return RedirectToAction(nameof(EditUser), new { Id = userId });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ManageUserRoles(string userId) {
+            ViewBag.userId = userId;
+
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (user == null) {
+                ViewBag.ErrorMessage = $"User with Id = {userId} cannot be found";
+                return View("NotFound");
+            }
+
+            var model = new List<IdNameSelectedBase>();
+
+            foreach (var role in _roleManager.Roles) {
+                var vm = new IdNameSelectedBase() {
+                    Id = role.Id,
+                    Name = role.Name,
+                };
+
+                vm.IsSelected = await _userManager.IsInRoleAsync(user, role.Name);
+
+                model.Add(vm);
+            }
+            return View(model);
+        }
+
+        [HttpPost]
         public async Task<IActionResult> DeleteRole(string id) {
             var role = await _roleManager.FindByIdAsync(id);
 
@@ -235,11 +289,11 @@ namespace kudvenkat.Controllers {
                 return View("NotFound");
             }
 
-            var model = new List<UserRoleViewModel>();
+            var model = new List<IdNameSelectedBase>();
             foreach (var user in _userManager.Users) {
-                var userRoleViewModel = new UserRoleViewModel() {
-                    UserId = user.Id,
-                    UserName = user.UserName
+                var userRoleViewModel = new IdNameSelectedBase() {
+                    Id = user.Id,
+                    Name = user.UserName
                 };
 
                 userRoleViewModel.IsSelected = await _userManager.IsInRoleAsync(user, role.Name);
@@ -251,7 +305,7 @@ namespace kudvenkat.Controllers {
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditUsersInRole(List<UserRoleViewModel> model, string roleId) {
+        public async Task<IActionResult> EditUsersInRole(List<IdNameSelectedBase> model, string roleId) {
             var role = await _roleManager.FindByIdAsync(roleId);
 
             if (role == null) {
@@ -260,7 +314,7 @@ namespace kudvenkat.Controllers {
             }
 
             for (int i = 0; i < model.Count; i++) {
-                var user = await _userManager.FindByIdAsync(model[i].UserId);
+                var user = await _userManager.FindByIdAsync(model[i].Id);
                 IdentityResult result = null;
 
                 if (model[i].IsSelected && !(await _userManager.IsInRoleAsync(user, role.Name))) {
