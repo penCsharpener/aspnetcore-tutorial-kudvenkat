@@ -38,6 +38,12 @@ namespace kudvenkat {
                                 .Build();
                 options.Filters.Add(new AuthorizeFilter(policy));
             }).AddXmlSerializerFormatters();
+
+            services.AddAuthorization(options => {
+                options.AddPolicy(nameof(AuthPolicies.DeleteRolePolicy),
+                    policy => policy.RequireClaim("Delete Role"));
+            });
+
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
         }
 
