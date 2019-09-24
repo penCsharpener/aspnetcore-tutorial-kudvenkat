@@ -4,6 +4,8 @@ using System.Text;
 
 namespace kudvenkat.DataAccess.Models {
     public enum AuthPolicies {
-        DeleteRolePolicy
+        DeleteRolePolicy,
+        AdminRolePolicy,
+        EditRolePolicy,
     }
 }

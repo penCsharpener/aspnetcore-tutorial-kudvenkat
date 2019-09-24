@@ -42,6 +42,12 @@ namespace kudvenkat {
             services.AddAuthorization(options => {
                 options.AddPolicy(nameof(AuthPolicies.DeleteRolePolicy),
                     policy => policy.RequireClaim("Delete Role"));
+
+                options.AddPolicy(nameof(AuthPolicies.EditRolePolicy),
+                   policy => policy.RequireClaim("Edit Role"));
+
+                options.AddPolicy(nameof(AuthPolicies.AdminRolePolicy),
+                    policy => policy.RequireClaim("Admin"));
             });
 
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();

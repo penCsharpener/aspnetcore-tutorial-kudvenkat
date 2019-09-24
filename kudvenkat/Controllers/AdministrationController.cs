@@ -290,6 +290,7 @@ namespace kudvenkat.Controllers {
         }
 
         [HttpGet]
+        [Authorize(Policy = nameof(AuthPolicies.EditRolePolicy))]
         public async Task<IActionResult> EditRole(string id) {
             var role = await _roleManager.FindByIdAsync(id);
 
@@ -313,6 +314,7 @@ namespace kudvenkat.Controllers {
         }
 
         [HttpPost]
+        [Authorize(Policy = nameof(AuthPolicies.EditRolePolicy))]
         public async Task<IActionResult> EditRole(EditRoleViewModel model) {
 
             var role = await _roleManager.FindByIdAsync(model.Id);
