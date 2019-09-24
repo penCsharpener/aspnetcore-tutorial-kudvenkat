@@ -48,7 +48,11 @@ namespace kudvenkat {
                     policy => policy.RequireClaim("Delete Role", "true"));
 
                 options.AddPolicy(nameof(AuthPolicies.EditRolePolicy),
-                   policy => policy.RequireClaim("Edit Role", "true"));
+                   policy => policy.RequireAssertion(context => {
+                       return context.User.IsInRole("Admin")
+                       && context.User.HasClaim(claim => claim.Type == "Edit Role" && claim.Value == "true")
+                       || context.User.IsInRole("Super Admin");
+                   }));
 
                 options.AddPolicy(nameof(AuthPolicies.AdminRolePolicy),
                     policy => policy.RequireClaim("Admin"));

@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace kudvenkat.Controllers {
 
+    [Authorize(Policy = nameof(AuthPolicies.AdminRolePolicy))]
     public class AdministrationController : Controller {
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<ApplicationUser> _userManager;
