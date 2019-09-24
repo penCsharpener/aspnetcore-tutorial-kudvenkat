@@ -45,10 +45,10 @@ namespace kudvenkat {
 
             services.AddAuthorization(options => {
                 options.AddPolicy(nameof(AuthPolicies.DeleteRolePolicy),
-                    policy => policy.RequireClaim("Delete Role"));
+                    policy => policy.RequireClaim("Delete Role", "true"));
 
                 options.AddPolicy(nameof(AuthPolicies.EditRolePolicy),
-                   policy => policy.RequireClaim("Edit Role"));
+                   policy => policy.RequireClaim("Edit Role", "true"));
 
                 options.AddPolicy(nameof(AuthPolicies.AdminRolePolicy),
                     policy => policy.RequireClaim("Admin"));

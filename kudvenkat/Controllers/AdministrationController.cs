@@ -46,7 +46,7 @@ namespace kudvenkat.Controllers {
 
             result = await _userManager.AddClaimsAsync(user,
                 model.Claims.Where(x => x.IsSelected)
-                            .Select(x => new Claim(x.ClaimType, x.ClaimType)));
+                            .Select(x => new Claim(x.ClaimType, x.IsSelected.ToString().ToLower())));
 
             if (!result.Succeeded) {
                 ModelState.AddModelError("", "Cannot add selected claims to user");
@@ -78,7 +78,7 @@ namespace kudvenkat.Controllers {
 
                 // If the user has the claim, set IsSelected property to true, so the checkbox
                 // next to the claim is checked on the UI
-                if (existingUserClaims.Any(x => x.Type == claim.Type)) {
+                if (existingUserClaims.Any(x => x.Type == claim.Type && x.Value == "true")) {
                     userClaim.IsSelected = true;
                 }
 
@@ -222,7 +222,7 @@ namespace kudvenkat.Controllers {
                 Email = user.Email,
                 UserName = user.UserName,
                 City = user.City,
-                Claims = userClaims.Select(c => c.Value).ToList(),
+                Claims = userClaims.Select(c => $"{c.Type}: {c.Value}").ToList(),
                 Roles = userRoles.ToList()
             };
 
