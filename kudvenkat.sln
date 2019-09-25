@@ -5,7 +5,12 @@ VisualStudioVersion = 16.0.29215.179
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kudvenkat", "kudvenkat\kudvenkat.csproj", "{67ACA66D-8D1D-473B-A757-A13332DB2EA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kudvenkat.DataAccess", "kudvenkat.DataAccess\kudvenkat.DataAccess.csproj", "{C9918166-3556-45B6-944F-A31EE3259F41}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kudvenkat.DataAccess", "kudvenkat.DataAccess\kudvenkat.DataAccess.csproj", "{C9918166-3556-45B6-944F-A31EE3259F41}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9E91D222-9C0E-4D4A-B0BF-D4B8BAFB9B52}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

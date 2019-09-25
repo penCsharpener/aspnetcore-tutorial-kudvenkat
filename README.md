@@ -10,4 +10,5 @@ My wishlist for further content by Venkat
 * using Mailkit/Mimekit to send email for registration, password change with tokens
 * uploading of audio files (mp3) and playing them
 * implementation of repository pattern and unit of work
+* how to integrate SignalR 
 * add FIDO2 authentication to app 
