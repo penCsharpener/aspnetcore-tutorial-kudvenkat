@@ -1,6 +1,6 @@
 # ASP.NET Tutorial by Venkat
 
-This repo is my code along of [ASP.NET core tutorial for beginners](https://www.youtube.com/playlist?list=PL6n9fhu94yhVkdrusLaQsfERmL_Jh4XmU).
+This repo is my code along of [ASP.NET core tutorial for beginners](https://www.youtube.com/playlist?list=PL6n9fhu94yhVkdrusLaQsfERmL_Jh4XmU). I made some slight changes to the code to reduce the usage of 'magic string' and left the models in another project called DataAccess. Migrations need to be called from that project instead in Package Manager Console.
 
 My wishlist for further content by Venkat
 
