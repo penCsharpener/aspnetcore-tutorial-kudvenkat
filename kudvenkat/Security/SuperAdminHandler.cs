@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using kudvenkat.Utils;
+using Microsoft.AspNetCore.Authorization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ namespace kudvenkat.Security {
     public class SuperAdminHandler : AuthorizationHandler<ManageAdminRolesAndClaimsRequirement> {
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context,
                                                        ManageAdminRolesAndClaimsRequirement requirement) {
-            if (context.User.IsInRole("Super Admin")) {
+            if (context.User.IsInRole(RoleConstants.SuperAdmin)) {
                 context.Succeed(requirement);
             }
 

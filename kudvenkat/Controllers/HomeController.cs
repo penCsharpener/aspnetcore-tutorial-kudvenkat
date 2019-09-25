@@ -67,7 +67,7 @@ namespace kudvenkat.Controllers {
                 };
 
                 _employeeRepository.Add(newEmployee);
-                return RedirectToAction("details", new { id = newEmployee.Id });
+                return RedirectToAction(nameof(Details), new { id = newEmployee.Id });
             }
             return View();
         }
@@ -102,7 +102,7 @@ namespace kudvenkat.Controllers {
                 }
 
                 _employeeRepository.Update(employee);
-                return RedirectToAction("index");
+                return RedirectToAction(nameof(Index));
             }
             return View();
         }

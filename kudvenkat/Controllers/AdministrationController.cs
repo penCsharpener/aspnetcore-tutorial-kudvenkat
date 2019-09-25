@@ -1,4 +1,5 @@
 ﻿using kudvenkat.DataAccess.Models;
+using kudvenkat.Utils;
 using kudvenkat.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -248,7 +249,7 @@ namespace kudvenkat.Controllers {
                 var result = await _userManager.UpdateAsync(user);
 
                 if (result.Succeeded) {
-                    return RedirectToAction("ListUsers");
+                    return RedirectToAction(nameof(ListUsers));
                 }
 
                 foreach (var error in result.Errors) {
@@ -275,7 +276,7 @@ namespace kudvenkat.Controllers {
                 var result = await _roleManager.CreateAsync(identityRole);
 
                 if (result.Succeeded) {
-                    return RedirectToAction(nameof(ListRoles), "Administration");
+                    return RedirectToAction(nameof(ListRoles), ControllerNameOutput.ToString(nameof(AdministrationController)));
                 }
 
                 foreach (var error in result.Errors) {

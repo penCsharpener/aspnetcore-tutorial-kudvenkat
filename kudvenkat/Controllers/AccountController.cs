@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using kudvenkat.DataAccess.Models;
+using kudvenkat.Utils;
 using kudvenkat.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -42,7 +43,8 @@ namespace kudvenkat.Controllers {
         public async Task<IActionResult> Register(RegisterViewModel model) {
             var exists = await _userManager.FindByEmailAsync(model.Email);
             if (exists != null) {
-                return RedirectToAction("register", "account");
+                return RedirectToAction(nameof(Register),
+                       ControllerNameOutput.ToString(nameof(AccountController)));
             }
 
             if (ModelState.IsValid) {
@@ -54,12 +56,13 @@ namespace kudvenkat.Controllers {
                 var result = await _userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded) {
-                    if (_signInManager.IsSignedIn(User) && User.IsInRole("Admin")) {
-                        return RedirectToAction(nameof(AdministrationController.ListUsers), "Administrator");
+                    if (_signInManager.IsSignedIn(User) && User.IsInRole(RoleConstants.Admin)) {
+                        return RedirectToAction(nameof(AdministrationController.ListUsers),
+                               ControllerNameOutput.ToString(nameof(AdministrationController)));
                     }
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("index", "home");
+                    return RedirectToAction(nameof(HomeController.Index), ControllerNameOutput.ToString(nameof(HomeController)));
                 }
 
                 foreach (var error in result.Errors) {
@@ -86,7 +89,7 @@ namespace kudvenkat.Controllers {
                     if (!string.IsNullOrWhiteSpace(returnURL) && Url.IsLocalUrl(returnURL)) {
                         return Redirect(returnURL);
                     }
-                    return RedirectToAction("index", "home");
+                    return RedirectToAction(nameof(HomeController.Index), ControllerNameOutput.ToString(nameof(HomeController)));
                 }
 
                 ModelState.AddModelError(string.Empty, "Invalid login attempt");
@@ -97,7 +100,7 @@ namespace kudvenkat.Controllers {
         [HttpPost]
         public async Task<IActionResult> Logout() {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("index", "home");
+            return RedirectToAction(nameof(HomeController.Index), ControllerNameOutput.ToString(nameof(HomeController)));
         }
     }
 }
