@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using kudvenkat.DataAccess.Models;
 using kudvenkat.Repositories;
 using kudvenkat.Security;
+using kudvenkat.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -52,7 +53,7 @@ namespace kudvenkat {
                    policy => policy.AddRequirements(new ManageAdminRolesAndClaimsRequirement()));
 
                 options.AddPolicy(nameof(AuthPolicies.AdminRolePolicy),
-                    policy => policy.RequireClaim("Admin"));
+                    policy => policy.RequireRole(RoleConstants.Admin));
             });
 
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
