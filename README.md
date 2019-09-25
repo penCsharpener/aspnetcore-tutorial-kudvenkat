@@ -7,5 +7,6 @@ My wishlist for further content by Venkat
 * migration to .NET Core 3.0
 * implementing endpoint routing
 * show new middleware possibilities with endpoint routing
+* using Mailkit/Mimekit to send email for registration, password change with tokens
 * uploading of audio files (mp3) and playing them
 * implementation of repository pattern and unit of work
